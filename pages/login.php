@@ -9,19 +9,16 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
+    // Perform login
     $role = $auth->login($email, $password);
 
-
-    if ($role === 'admin') {
-        header('Location: ../dashboard/admin.php'); 
+    if (!$role) {
+ echo"bad info";
+        header('Location: ../pages/login.php'); 
         exit();
-    } elseif ($role === 'client') {
-        header('Location: ../dashboard/client.php'); 
-        exit();
-    } else {
-        // echo "Invalid info!";
     }
 }
+
 ?>
 
 
@@ -42,6 +39,7 @@ if (isset($_POST['submit'])) {
         <div class="card shadow-lg" style="width: 100%; max-width: 400px;">
             <div class="card-body">
                 <h4 class="card-title text-center mb-4">Login</h4>
+                
                 <form action="login.php" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">Email address</label>

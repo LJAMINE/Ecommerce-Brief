@@ -1,8 +1,3 @@
-<?php 
-include('../config/config.php');
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +6,6 @@ include('../config/config.php');
     <title>Document</title>
 </head>
 <body>
-    <h1>client</h1>
+    <h1>clients</h1>
 </body>
 </html>
