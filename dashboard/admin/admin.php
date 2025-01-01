@@ -1,5 +1,24 @@
 <?php
 include('../../config/config.php');
+include('../../class/products.php');
+
+$newProducts=new Products($pdo);
+
+if ($_SERVER['REQUEST_METHOD']=="POST") {
+
+    $name=$_POST['name'];
+    $description=$_POST['description'];
+    $price=$_POST['price'];
+    $quantity=$_POST['quantity'];
+    
+    $newProducts->createProducts($name,$description,$price,$quantity);
+    header("location:admin.php");
+    }else{
+        echo 'bad';
+    }
+
+
+$Row=$newProducts->displayProducts();
 ?>
 
 <!DOCTYPE html>
@@ -201,24 +220,25 @@ include('../../config/config.php');
                 <thead>
                     <tr>
                         <th>product name</th>
+                        <th>description</th>
                         <th>price</th>
                         <th> quantity</th>
-                        <th>description</th>
                         <th>update</th>
                         <th>delete</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php ?>
+                    <?php foreach($Row as $newRow) {?>
                     <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td><?php echo $newRow['name'] ?></td>
+                        <td><?php echo $newRow['description'] ?></td>
+                        <td><?php echo $newRow['price'] ?></td>
+                        <td><?php echo $newRow['quantity'] ?></td>
+                        <td>update</td>
+                        <td>delete</td>
+
                     </tr>
-                    <?php ?>
+                    <?php } ?>
                 </tbody>
             </table>
 
@@ -231,7 +251,7 @@ include('../../config/config.php');
     <!-- Add Product Drawer -->
     <div class="drawer" id="productDrawer">
         <button id="closeme">Close</button>
-        <form id="productForm" action="add_product.php" method="POST">
+        <form id="productForm" action="" method="POST">
             <label for="productName">Product Name</label>
             <input type="text" id="productName" name="name" placeholder="Product Name">
 
@@ -244,7 +264,7 @@ include('../../config/config.php');
             <label for="productDescription">Description</label>
             <textarea id="productDescription" name="description" placeholder="Product Description"></textarea>
 
-            <button type="submit" name="submitProduct">Submit</button>
+            <button type="submit" value="submit" name="submit">Submit</button>
         </form>
     </div>
 
