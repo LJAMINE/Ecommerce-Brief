@@ -1,11 +1,16 @@
 <?php
 
+require_once('products.php');
+
 class ProductsManager {
     protected $pdo;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
+
+
+    //product func----------------------------------------------------------------------
 
     public function displayProducts() {
         $stmt = $this->pdo->prepare("SELECT * FROM products");
@@ -26,12 +31,41 @@ class ProductsManager {
     }
 
 
-
+public function getProduct($id){
+    $stmt = $this->pdo->prepare("SELECT * FROM products WHERE productid = :id");
+    $stmt->execute([
+        ':id' => $id
+    ]);
+    $product = $stmt->fetch();
+    return new Product($product['productid'], $product['name'], $product['description'], $product['price'], $product['quantity']);
+}
 
     public function deleteProduct($id) {
         $stmt = $this->pdo->prepare("DELETE FROM products WHERE productid = ?");
         return $stmt->execute([$id]);
     }
+
+    public function updateProduct($product) {
+        $stmt = $this->pdo->prepare("UPDATE products SET name = ?, description = ?, price = ?, quantity = ? WHERE productid = ?");
+        return $stmt->execute([
+            $product->getName(),
+            $product->getDescription(),
+            $product->getPrice(),
+            $product->getQuantity(),
+            $product->getId()
+        ]);
+    }
+
+
+    //clients-----------------------------------------------------------------------
+
+    public function getUser(){
+        $stmt=$this->pdo->prepare("SELECT * FROM users");
+        $stmt->execute();
+        return $stmt->fetchAll();
+
+    }
+
 }
 
 ?>
