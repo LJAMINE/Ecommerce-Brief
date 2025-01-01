@@ -10,7 +10,7 @@ try {
 
 $pdo=new PDO($dns,$username,$password);
 
-echo 'good connexion';
+// echo 'good connexion';
 
 } catch (PDOException $e) {
 echo $e;

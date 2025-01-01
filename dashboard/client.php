@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 include('../config/config.php');
 
 ?>
@@ -12,6 +11,6 @@ include('../config/config.php');
     <title>Document</title>
 </head>
 <body>
-    <h1>amine</h1>
+    <h1>client</h1>
 </body>
 </html>

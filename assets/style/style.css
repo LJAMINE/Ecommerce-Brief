@@ -1,0 +1,84 @@
+/* General Body Styling */
+body {
+    background: linear-gradient(135deg, #f3f7fa, #dbe9f1); /* Soft gradient */
+    height: 100vh;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Center the form container */
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+/* Card Content Styling */
+.card-body {
+    padding: 2rem;
+    background: #ffffff;
+    position: relative;
+}
+
+.card-title {
+    font-weight: 600;
+    color: #2c3e50;
+    text-align: center;
+}
+
+/* Form Inputs */
+.form-control {
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 5px rgba(106, 130, 251, 0.4);
+    border-color: #6a82fb;
+}
+
+/* Submit Button */
+.btn-primary {
+    background: linear-gradient(135deg, #1c92d2, #f2fcfe);
+    border: none;
+    padding: 0.6rem;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+/* Text Links */
+.text-primary {
+    color: #1c92d2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.text-primary:hover {
+    color: #0072ff;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .card {
+        width: 90%;
+    }
+    .card-body {
+        padding: 1.5rem;
+    }
+    .btn-primary {
+        padding: 0.5rem;
+    }
+}
