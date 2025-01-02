@@ -10,11 +10,7 @@ class Auth {
     }
 
     // Register
-    public function register($username, $email, $password) {
-        // Sanitize XSSS
-        $username = htmlspecialchars(trim($username), ENT_QUOTES, 'UTF-8');
-        $email = htmlspecialchars(trim($email), ENT_QUOTES, 'UTF-8');
-        
+    public function register($username, $email, $password) {     
         // username or email exist?
         $stmt = $this->pdo->prepare("SELECT * FROM users WHERE username = :username OR email = :email");
         $stmt->execute(['username' => $username, 'email' => $email]);
@@ -24,7 +20,6 @@ class Auth {
             return 'Username or email already exists';
         }
     
-        // Hash the password
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
     
         // insert to DB 
@@ -36,7 +31,7 @@ class Auth {
 
     // Login 
     public function login($email, $password) {
-        //sanitize 
+
         $email = htmlspecialchars(trim($email), ENT_QUOTES, 'UTF-8');
         $password = htmlspecialchars(trim($password), ENT_QUOTES, 'UTF-8');
         
@@ -61,22 +56,17 @@ class Auth {
         }
         
         return false;  //error in info
+
+
+
     }
 
-    // check if the user is logged in
-    public function isLoggedIn() {
-        return isset($_SESSION['user_id']);
-    }
 
-    // Get user role
-    public function getRole() {
-        return isset($_SESSION['role']) ? $_SESSION['role'] : null;
-    }
+public function logout (){
 
-    // logout user
-    public function logout() {
-        session_unset();
-        session_destroy();
-    }
+}
+
+    
+
 }
 ?>

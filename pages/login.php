@@ -9,11 +9,14 @@ if (isset($_POST['submit'])) {
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    // Perform login
+ 
     $role = $auth->login($email, $password);
 
     if (!$role) {
  echo"bad info";
+ 
+   
+    }else{
         header('Location: ../pages/login.php'); 
         exit();
     }

@@ -3,7 +3,14 @@ include('../../config/config.php');
 include('../../class/products.php');
 include('../../class/products_maager.php');
 
+session_start();
 
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+    header('Location: ../../pages/login.php');
+    exit();
+} else {
+    // echo "admin";
+}
 
 
 $productsManager = new ProductsManager($pdo);
@@ -30,7 +37,9 @@ $products = $productsManager->displayProducts();
         <button id="viewClientsButton"> Clients</button>
         <button id="viewOrdersButton"> Orders</button>
         <button id="viewStatsButton">stats</button>
-        <button id="logoutButton">Logout</button>
+        <!-- <button id="logoutButton">Logout</button> -->
+        <a href="../../function/auth/logout.php">Logout</a>
+
     </div>
 
     <div class="content">
