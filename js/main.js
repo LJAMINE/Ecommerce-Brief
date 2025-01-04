@@ -10,13 +10,6 @@ closeme.addEventListener('click', () => {
     productDrawer.classList.remove('active');
 });
 
-// const logoutButton = document.getElementById('logoutButton');
-// logoutButton.addEventListener('click', () => {
-//     window.location.href = '../../pages/login.php';
-// });
-
-
-
 const viewClientsButton = document.getElementById('viewClientsButton');
 viewClientsButton.addEventListener("click",() => {
     window.location.href='../../dashboard/admin/clients.php';

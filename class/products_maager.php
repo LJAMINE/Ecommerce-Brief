@@ -19,7 +19,7 @@ class ProductsManager {
 
         $products = [];
         foreach ($rows as $row) {
-            $products[] = new Product($row['productid'], $row['name'], $row['description'], $row['price'], $row['quantity']);
+            $products[] = new Product($row['productid'], $row['name'], $row['photo'],$row['description'], $row['price'], $row['quantity']);
         }
 
         return $products;
@@ -37,7 +37,7 @@ public function getProduct($id){
         ':id' => $id
     ]);
     $product = $stmt->fetch();
-    return new Product($product['productid'], $product['name'], $product['description'], $product['price'], $product['quantity']);
+    return new Product($product['productid'], $product['name'], $product['photo'],$product['description'], $product['price'], $product['quantity']);
 }
 
     public function deleteProduct($id) {
@@ -46,9 +46,10 @@ public function getProduct($id){
     }
 
     public function updateProduct($product) {
-        $stmt = $this->pdo->prepare("UPDATE products SET name = ?, description = ?, price = ?, quantity = ? WHERE productid = ?");
+        $stmt = $this->pdo->prepare("UPDATE products SET name = ?,photo = ?, description = ?, price = ?, quantity = ? WHERE productid = ?");
         return $stmt->execute([
             $product->getName(),
+            $product->getPhoto(),
             $product->getDescription(),
             $product->getPrice(),
             $product->getQuantity(),
