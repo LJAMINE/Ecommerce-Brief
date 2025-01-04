@@ -20,6 +20,7 @@ $clients = $clientsManagers->getUser();
 </head>
 
 <body>
+
     <div class="icon-container">
         <a href="./admin.php" class="back-icon" title="Go Back">
             <i class="fa-solid fa-right-from-bracket"></i>
@@ -48,9 +49,9 @@ $clients = $clientsManagers->getUser();
                         <td><?= $client['status']; ?></td>
 
                         <td>
-                        <a href="../../function/auth/status.php?id=<?php echo $client['id'];?>" class="button update-button">switch</a>
-
+                            <a href="../../function/auth/status.php?id=<?php echo $client['id']; ?>" class="button update-button">Switch</a>
                         </td>
+
                     </tr>
                 <?php } ?>
             </tbody>

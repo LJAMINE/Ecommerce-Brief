@@ -62,16 +62,13 @@ class Auth
         else {
             echo 'bad info ';
         }
-
-
-
     }
 
 
     public function switchActive($id)
     {
-
-        $stmt = $this->pdo->prepare("UPDATE users SET status='disactivated' WHERE id=?");
-        $stmt->execute([$id]);
+        $stmt = $this->pdo->prepare("UPDATE users SET status = CASE WHEN status = 'active' THEN 'disactivated' ELSE 'active' END WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }

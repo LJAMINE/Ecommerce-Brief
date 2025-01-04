@@ -82,3 +82,39 @@ tbody tr:nth-child(even) {
     color: #3498db;
     transform: scaleX(-1) scale(1.1);
 }
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.button:hover {
+    background-color: #45a049;
+    transform: scale(1.05); 
+}
+
+.button:active {
+    background-color: #388e3c;
+}
+
+.update-button {
+    background-color: #007bff;
+    padding: 12px 20px;
+}
+
+.update-button:hover {
+    background-color: #0056b3;
+}
+
+.update-button:active {
+    background-color: #004085;
+}
