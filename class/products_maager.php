@@ -13,7 +13,7 @@ class ProductsManager {
     //product func----------------------------------------------------------------------
 
     public function displayProducts() {
-        $stmt = $this->pdo->prepare("SELECT * FROM products");
+        $stmt = $this->pdo->prepare("SELECT * FROM products where status!='deleted'");
         $stmt->execute();
         $rows = $stmt->fetchAll();
 
@@ -41,7 +41,7 @@ public function getProduct($id){
 }
 
     public function deleteProduct($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM products WHERE productid = ?");
+        $stmt = $this->pdo->prepare("UPDATE products SET status ='deleted' WHERE productid = ?");
         return $stmt->execute([$id]);
     }
 
@@ -60,8 +60,8 @@ public function getProduct($id){
     //clients-----------------------------------------------------------------------
 
     public function getUser(){
-        $stmt=$this->pdo->prepare("SELECT * FROM users");
-        $stmt->execute();
+        $stmt=$this->pdo->prepare("SELECT * FROM users where role='client'");
+        $stmt->execute([]);
         return $stmt->fetchAll();
 
     }
