@@ -3,11 +3,64 @@ include('../../config/config.php');
 session_start();
 
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo " panier is empty.";
+    echo '
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f4f4f4;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+            }
+            .empty-cart {
+                text-align: center;
+                background-color: #fff;
+                padding: 30px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+            .empty-cart h1 {
+                font-size: 2rem;
+                color: #555;
+            }
+            .empty-cart p {
+                font-size: 1.2rem;
+                color: #888;
+                margin: 15px 0;
+            }
+            .empty-cart a {
+                display: inline-block;
+                margin-top: 20px;
+                background-color: #1D7453FF;
+                color: white;
+                padding: 10px 20px;
+                text-decoration: none;
+                border-radius: 5px;
+                transition: background-color 0.3s ease;
+            }
+        
+        </style>
+    </head>
+    <body>
+        <div class="empty-cart">
+            <h1>Panier is empty</h1>
+            <p>Your cart is  empty. Add some products to proceed!</p>
+            <a href="client.php">Go to Shop</a>
+        </div>
+    </body>
+    </html>';
     exit();
 }
-
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -83,7 +136,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
         if ($product) {
 
             $itemTotal = $product['price'] * $item['quantity']; 
-            $totalPrice += $itemTotal; // Add the item total to the cart total
+            $totalPrice += $itemTotal; //add item total to the cart total
             ?>
             <div class="card">
                 <img src="<?php echo $product['photo'] ?>" alt="Product Image" style="width: 100px; height: auto;">

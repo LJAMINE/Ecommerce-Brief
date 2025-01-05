@@ -24,19 +24,19 @@ if (isset($_GET['product_id'])) {
 
 
     if ($product) {
-        // Check if the product is already in the cart
+        // check if the product is already in the cart
         if (isset($_SESSION['cart'][$product_id])) {
             // If product already in cart, increase the quantity
             $_SESSION['cart'][$product_id]['quantity'] += $quantity;
         } else {
-            // If product is not in the cart, add it with quantity and price
+            // if product is not in the cart, add it with quantity and price
             $_SESSION['cart'][$product_id] = [
                 'quantity' => $quantity,
-                'price' => $product['price'],  // Store the product's price
+                'price' => $product['price'],  // store the product price
             ];
         }
 
-        // Redirect to the cart page
+        // redirect to the cart page
         header('Location: ../../dashboard/client/panier.php');
         exit();
     } else {
