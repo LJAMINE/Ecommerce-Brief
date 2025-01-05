@@ -36,7 +36,7 @@ $clients = $clientsManagers->getUser();
                     <th>Email</th>
                     <th>Created At</th>
                     <th>status</th>
-                    <th>switch status</th>
+                    <th>change status</th>
                 </tr>
             </thead>
             <tbody>

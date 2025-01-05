@@ -39,7 +39,7 @@ class Auth
         $password = htmlspecialchars(trim($password), ENT_QUOTES, 'UTF-8');
 
         //  if the email exis in db
-        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email");
+        $stmt = $this->pdo->prepare("SELECT * FROM users WHERE email = :email AND status <> 'disactivated'");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 

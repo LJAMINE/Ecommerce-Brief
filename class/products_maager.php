@@ -58,6 +58,44 @@ public function getProduct($id){
     }
 
 
+
+
+
+
+//order
+    public function createOrder($userId, $total) {
+        // Insert the order
+        $stmt = $this->pdo->prepare("INSERT INTO orders (id, total, orderdate) VALUES (:user_id, :total, NOW())");
+        $stmt->execute(['user_id' => $userId, 'total' => $total]);
+        
+
+        $orderId = $this->pdo->lastInsertId();
+        
+        return $orderId;
+    }
+    
+
+    public function addOrderItems($orderId, $cart) {
+        // insert f product manager table
+        $stmt = $this->pdo->prepare("INSERT INTO productmanager (orderid, productid, qte, pricetotal) VALUES (:order_id, :product_id, :quantity, :price)");
+        
+        foreach ($cart as $productId => $item) {
+            $stmt->execute([
+                'order_id' => $orderId,
+                'product_id' => $productId,
+                'quantity' => $item['quantity'],
+                'price' => $item['price']
+            ]);
+        }
+    }
+    
+
+
+
+
+
+
+
     //clients-----------------------------------------------------------------------
 
     public function getUser(){

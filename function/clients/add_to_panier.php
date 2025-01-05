@@ -1,4 +1,6 @@
 <?php
+include_once('../../config/config.php');
+
 
 session_start();
 
@@ -15,22 +17,32 @@ if (isset($_GET['product_id'])) {
         $_SESSION['cart'] = [];
     }
 
-//check if product is in the panier 
-    if (isset($_SESSION['cart'][$product_id])) {
-        // zidf  quantity ila product kayn deja f panier
-        // example
-        // $_SESSION['cart'][1] = ['quantity' => 2];
+    $stmt = $pdo->prepare("SELECT * FROM products WHERE productid = :product_id");
+    $stmt->execute(['product_id' => $product_id]);
+    $product = $stmt->fetch();
 
-        $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+
+
+    if ($product) {
+        // Check if the product is already in the cart
+        if (isset($_SESSION['cart'][$product_id])) {
+            // If product already in cart, increase the quantity
+            $_SESSION['cart'][$product_id]['quantity'] += $quantity;
+        } else {
+            // If product is not in the cart, add it with quantity and price
+            $_SESSION['cart'][$product_id] = [
+                'quantity' => $quantity,
+                'price' => $product['price'],  // Store the product's price
+            ];
+        }
+
+        // Redirect to the cart page
+        header('Location: ../../dashboard/client/panier.php');
+        exit();
     } else {
-//ila makanch deja chi produit zido f panier
-        $_SESSION['cart'][$product_id] = [
-            'quantity' => $quantity,
-        ];
+        // Product not found in the database
+        echo "Product not found.";
     }
-
-    header('Location: ../../dashboard/client/panier.php');
-    exit();
 }
 
 ?>
