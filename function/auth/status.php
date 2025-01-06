@@ -13,10 +13,12 @@ if (isset($_GET['id'])) {
 try {
     $newswitch = new Auth($pdo);
     if (!$newswitch->switchActive($id)) {
-        throw new Exception('failed to update');
+        throw new Exception('errorr udate');
+    }else{
+
+        header("Location: ../../dashboard/admin/clients.php");
+        exit;
     }
-    header("Location: ../../dashboard/admin/clients.php");
-    exit;
 } catch (Exception $e) {
     error_log($e->getMessage());
     die('errrrrro');

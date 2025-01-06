@@ -3,7 +3,7 @@ include('../../config/config.php');
 session_start();
 
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-    echo '
+?>    
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -56,7 +56,8 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             <a href="client.php">Go to Shop</a>
         </div>
     </body>
-    </html>';
+    </html>
+<?php
     exit();
 }
 ?>

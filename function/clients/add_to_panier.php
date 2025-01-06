@@ -13,6 +13,9 @@ if (isset($_GET['product_id'])) {
     $product_id = $_GET['product_id'];//url product_id=url li f client.php href
     $quantity = isset($_GET['quantity']) ? $_GET['quantity'] : 1;
 
+
+
+    //ila session cart is not seeet initialise b empty array
     if (!isset($_SESSION['cart'])) {
         $_SESSION['cart'] = [];
     }
@@ -24,23 +27,21 @@ if (isset($_GET['product_id'])) {
 
 
     if ($product) {
-        // check if the product is already in the cart
+        // ila  product already in the cart
         if (isset($_SESSION['cart'][$product_id])) {
-            // If product already in cart, increase the quantity
+            // ila  product already in cart, incrementer qte
             $_SESSION['cart'][$product_id]['quantity'] += $quantity;
         } else {
             // if product is not in the cart, add it with quantity and price
             $_SESSION['cart'][$product_id] = [
                 'quantity' => $quantity,
-                'price' => $product['price'],  // store the product price
+                'price' => $product['price'],  // store the qte et prix 
             ];
         }
 
-        // redirect to the cart page
         header('Location: ../../dashboard/client/panier.php');
         exit();
     } else {
-        // Product not found in the database
         echo "Product not found.";
     }
 }

@@ -46,7 +46,7 @@ $products = $productsManager->displayProducts();
         <?php foreach ($products as $produit) { ?>
 
             <div class="card">
-            <td><img src="<?php echo $produit->getPhoto(); ?>" alt="Product Image" style="width: 100px; height: auto;"></td>
+            <td><img src="<?php echo $produit->getPhoto(); ?>" alt="" style="width: 100px; height: auto;"></td>
             <div class="card-body">
                     <h3><?php echo $produit->getName() ?></h3>
                     <p><?php echo   $produit->getDescription() ?></p>

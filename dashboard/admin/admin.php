@@ -60,7 +60,7 @@ $products = $productsManager->displayProducts();
                         <th>product name</th>
                         <th>description</th>
                         <th>price</th>
-                        <th> quantity</th>
+                        <th>quantity</th>
                         <th>update</th>
                         <th>delete</th>
                     </tr>
