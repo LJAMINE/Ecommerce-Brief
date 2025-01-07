@@ -72,7 +72,7 @@ class ProductsManager
 
 
 
-    //order
+    //order-------------------------------------------
     public function createOrder($userId, $total)
     {
         // Insert the order
@@ -84,23 +84,41 @@ class ProductsManager
 
         return $orderId;
     }
-
-
     public function addOrderItems($orderId, $cart)
     {
-        // insert f product manager table
+        // ineert in productmanager table
         $stmt = $this->pdo->prepare("INSERT INTO productmanager (orderid, productid, qte, pricetotal) VALUES (:order_id, :product_id, :quantity, :price)");
 
         foreach ($cart as $productId => $item) {
+
+            $product = $this->getProduct($productId);
+
+            if ($product->getQuantity() < $item['quantity']) {
+                throw new Exception("no stock for product ");
+            }
+
+
             $stmt->execute([
                 'order_id' => $orderId,
                 'product_id' => $productId,
                 'quantity' => $item['quantity'],
-                'price' => $item['price']
+                'price' => $item['quantity'] * $item['price'],
             ]);
+
+            // quantty
+            $this->updateProductQuantity($productId, $item['quantity']);
         }
     }
 
+    // mise jour quantity apres an order
+    public function updateProductQuantity($productId, $quantity)
+    {
+        $stmt = $this->pdo->prepare("UPDATE products SET quantity = quantity - :quantity WHERE productid = :product_id");
+        $stmt->execute([
+            'quantity' => $quantity,
+            'product_id' => $productId,
+        ]);
+    }
 
 
 
@@ -120,28 +138,42 @@ class ProductsManager
 
 
 
-//affichage des produit tootall
+    //affichage des produit tootall
 
-public function affichageProducttotal() {
-    $stmt = $this->pdo->prepare("SELECT COUNT(*) AS totalProduits FROM products WHERE status='active'");
-    $stmt->execute();
-    return $stmt->fetch(PDO::FETCH_ASSOC); 
-}
+    public function affichageProducttotal()
+    {
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS totalProduits FROM products WHERE status='active'");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
 
 
-//affichage des client tootall
+    //affichage des client tootall
 
-public function affichageClient() {
+    public function affichageClient()
+    {
 
-    $stmt=$this->pdo->prepare("SELECT COUNT(*) AS totalClient FROM users");
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS totalClient FROM users");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    //affichage des order tootall
+
+    public function affichageorder()
+    {
+
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) AS totalOrders FROM orders");
+        $stmt->execute();
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+public function orderStats()
+{
+    $stmt = $this->pdo->prepare("SELECT COUNT(*) AS totalorder, SUM(total) AS totalvente FROM orders");
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
-   
 }
-
-
-
 
 }
 
-    

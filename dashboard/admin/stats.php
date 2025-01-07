@@ -7,6 +7,9 @@ $products = $productsManager->affichageProducttotal();
 
 $objectClient = new ProductsManager($pdo);
 $clients = $objectClient->affichageClient();
+
+$objectOrders = new ProductsManager($pdo);
+$order = $objectOrders->affichageorder();
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +23,7 @@ $clients = $objectClient->affichageClient();
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
             padding: 0;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #95A7C8FF, #2a5298);
             color: #fff;
             display: flex;
             justify-content: center;
@@ -84,6 +87,10 @@ $clients = $objectClient->affichageClient();
         <div class="stat-card">
             <div class="stat-title">Total Clients</div>
             <div class="stat-value"><?php echo htmlspecialchars($clients["totalClient"]); ?></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-title">Total order</div>
+            <div class="stat-value"><?php echo htmlspecialchars($order["totalOrders"]); ?></div>
         </div>
     </div>
 </body>
