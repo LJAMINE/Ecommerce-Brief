@@ -3,9 +3,10 @@ include('../../config/config.php');
 session_start();
 
 if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
-?>    
+?>
     <!DOCTYPE html>
     <html lang="en">
+
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +21,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
                 justify-content: center;
                 height: 100vh;
             }
+
             .empty-cart {
                 text-align: center;
                 background-color: #fff;
@@ -27,15 +29,18 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
                 border-radius: 10px;
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             }
+
             .empty-cart h1 {
                 font-size: 2rem;
                 color: #555;
             }
+
             .empty-cart p {
                 font-size: 1.2rem;
                 color: #888;
                 margin: 15px 0;
             }
+
             .empty-cart a {
                 display: inline-block;
                 margin-top: 20px;
@@ -46,16 +51,17 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
                 border-radius: 5px;
                 transition: background-color 0.3s ease;
             }
-        
         </style>
     </head>
+
     <body>
         <div class="empty-cart">
             <h1>Panier is empty</h1>
-            <p>Your cart is  empty. Add some products to proceed!</p>
+            <p>Your cart is empty. Add some products to proceed!</p>
             <a href="client.php">Go to Shop</a>
         </div>
     </body>
+
     </html>
 <?php
     exit();
@@ -65,6 +71,7 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,59 +117,61 @@ if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
         transform: scale(1);
     }
 </style>
+
 <body>
-<nav>
-    <div>
-        <a href="client.php"><img src="../../assets/images/social.png" alt="Social Icon"></a>
-    </div>
+    <nav>
+        <div>
+            <a href="client.php"><img src="../../assets/images/social.png" alt="Social Icon"></a>
+        </div>
 
-    <div>
-        <a href="panier.php"><img src="../../assets/images/shopping-cart.png" alt="Shopping Cart"></a>
-        <a href="client.php"><img src="../../assets/images/logout.png" alt="Logout"></a>
-    </div>
-</nav>
+        <div>
+            <a href="panier.php"><img src="../../assets/images/shopping-cart.png" alt="Shopping Cart"></a>
+            <a href="client.php"><img src="../../assets/images/logout.png" alt="Logout"></a>
+        </div>
+    </nav>
 
-<h1>Your Cart</h1>
-<div class="card-container">
-    <?php
+    <h1>Your Cart</h1>
+    <div class="card-container">
+        <?php
 
-    $totalPrice = 0; 
+        $totalPrice = 0;
 
-    foreach ($_SESSION['cart'] as $product_id => $item) {
+        foreach ($_SESSION['cart'] as $product_id => $item) {
 
-        $stmt = $pdo->prepare("SELECT * FROM products WHERE productid =?");
-        $stmt->execute([$product_id]);
-        $product = $stmt->fetch();
+            $stmt = $pdo->prepare("SELECT * FROM products WHERE productid =?");
+            $stmt->execute([$product_id]);
+            $product = $stmt->fetch();
 
-        if ($product) {
+            if ($product) {
 
-            $itemTotal = $product['price'] * $item['quantity']; 
-            $totalPrice += $itemTotal; //add item total to the cart total
-            ?>
-            <div class="card">
-                <img src="<?php echo $product['photo'] ?>" alt="Product Image" style="width: 100px; height: auto;">
-                <div class="card-body">
-                    <h3><?php echo htmlspecialchars($product['name']); ?></h3>
-                    <p>Price: <?php echo htmlspecialchars($product['price']); ?> $</p>
-                    <p>Quantity: <?php echo htmlspecialchars($item['quantity']); ?></p>
-                    
-                    <p>Total: <?php echo htmlspecialchars($itemTotal); ?> $</p>
+                $itemTotal = $product['price'] * $item['quantity'];
+                $totalPrice += $itemTotal; //add item total to the cart total
+        ?>
+                <div class="card">
+                    <img src="<?php echo $product['photo'] ?>" alt="Product Image" style="width: 100px; height: auto;">
+                    <div class="card-body">
+                        <h3><?php echo htmlspecialchars($product['name']); ?></h3>
+                        <p>Price: <?php echo htmlspecialchars($product['price']); ?> $</p>
+                        <p>Quantity: <?php echo htmlspecialchars($item['quantity']); ?></p>
+
+                        <p>Total: <?php echo htmlspecialchars($itemTotal); ?> $</p>
+                    </div>
                 </div>
-            </div>
-            <?php
-        } else {
-            echo "<p>product not found $product_id.</p>";
+        <?php
+            } else {
+                echo "<p>product not found $product_id.</p>";
+            }
         }
-    }
-    ?>
-</div>
-<div class="checkout-summary">
-    <h2>Total Price: <?php echo $totalPrice; ?> $</h2>
+        ?>
+    </div>
+    <div class="checkout-summary">
+        <h2>Total Price: <?php echo $totalPrice; ?> $</h2>
 
-    <form action="../../function/orders/checkout.php" method="post">
-        <button type="submit">confirm order</button>
-    </form>
-</div>
+        <form action="../../function/orders/checkout.php" method="post">
+            <button type="submit">confirm order</button>
+        </form>
+    </div>
 
 </body>
+
 </html>

@@ -19,7 +19,9 @@ class Auth
         $existingUser = $stmt->fetch();
 
         if ($existingUser) {
-            return 'Username or email already exists';
+            echo "<div class='alert alert-danger'>Username or email already exists </div>";
+
+            return;
         }
 
         $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
@@ -28,7 +30,7 @@ class Auth
         $stmt = $this->pdo->prepare("INSERT INTO users (username, email, password, role) VALUES (:username, :email, :password, 'client')");
         $stmt->execute(['username' => $username, 'email' => $email, 'password' => $hashedPassword]);
 
-        header("Location: ../pages/login.php");
+        // header("Location: ../pages/login.php");
     }
 
     // Login 
@@ -60,7 +62,7 @@ class Auth
 
         // return false;  //error in info
         else {
-            echo 'bad info ';
+            echo "";
         }
     }
 

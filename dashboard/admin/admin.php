@@ -48,6 +48,8 @@ $products = $productsManager->displayProducts();
 
     </div>
 
+
+
     <div class="content">
         <!-- <h1>Admin Dashboard</h1> -->
 
@@ -69,10 +71,10 @@ $products = $productsManager->displayProducts();
                     <?php foreach ($products as $produit) { ?>
                         <tr>
                             <td><img src="<?php echo $produit->getPhoto(); ?>" alt="Product Image" style="width: 100px; height: auto;"></td>
-                            <td><?php echo $produit->getName() ?></td>
-                            <td><?php echo   $produit->getDescription() ?></td>
-                            <td><?php echo  $produit->getPrice()   ?></td>
-                            <td><?php echo  $produit->getQuantity() ?></td>
+                            <td><?php echo htmlspecialchars($produit->getName(), ENT_QUOTES, 'UTF-8');?></td>
+                            <td><?php echo htmlspecialchars($produit->getDescription(), ENT_QUOTES, 'UTF-8');?></td>
+                            <td><?php echo htmlspecialchars($produit->getPrice(), ENT_QUOTES, 'UTF-8');?></td>
+                            <td><?php echo htmlspecialchars($produit->getQuantity(), ENT_QUOTES, 'UTF-8');?></td>
                             <td>
                                 <a href="../../function/product/update.php?id=<?php echo $produit->getId(); ?>" class="button update-button">Update</a>
                             </td>
